@@ -1,4 +1,4 @@
-import pygame, random
+import pygame, random, sys
 from pygame.math import Vector2
 
 
@@ -54,6 +54,7 @@ class MAIN:
     def update(self):
         self.snake.move_snake()
         self.check_collision()
+        self.check_fail()
 
     def draw_elements(self):
         self.fruit.draw_fruit()
@@ -64,6 +65,14 @@ class MAIN:
             self.fruit.randomize() # make new fruit spawn in new location
             self.snake.add_block()
 
+    def check_fail(self):
+        if (not 0 <= self.snake.body[0].x < cell_number) or (not 0 <= self.snake.body[0].y < cell_number): # if the head of the snake is out of the grid
+            self.game_over()
+    
+    def game_over(self):
+        pygame.quit()
+        sys.exit()
+
 
 pygame.init()
 
@@ -72,7 +81,6 @@ cell_number = 20
 screen = pygame.display.set_mode((cell_number * cell_size , cell_number * cell_size)) # width, height
 pygame.display.set_caption("Snake Game!")
 clock = pygame.time.Clock()
-running = True
 
 
 SCREEN_UPDATE = pygame.USEREVENT
@@ -80,10 +88,11 @@ pygame.time.set_timer(SCREEN_UPDATE, 150) # make event trigger every 150 milisec
 
 main_game = MAIN()
 
-while running:
+while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            running = False
+            pygame.quit()
+            sys.exit()
         if event.type == SCREEN_UPDATE:
             main_game.update()
         if event.type == pygame.KEYDOWN: # check for input on keyboard
@@ -104,4 +113,3 @@ while running:
 
 
 
-pygame.quit()
