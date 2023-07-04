@@ -30,8 +30,17 @@ class SNAKE:
         body_copy.insert(0, body_copy[0] + self.direction) # location of new head
         self.body = body_copy[:] # update body to new list
 
+class MAIN:
+    def __init__(self):
+        self.snake = SNAKE()
+        self.fruit = FRUIT()
+    
+    def update(self):
+        self.snake.move_snake()
 
-
+    def draw_elements(self):
+        self.fruit.draw_fruit()
+        self.snake.draw_snake()
 
 
 pygame.init()
@@ -43,35 +52,31 @@ pygame.display.set_caption("Snake Game!")
 clock = pygame.time.Clock()
 running = True
 
-fruit = FRUIT()
-snake = SNAKE()
 
 SCREEN_UPDATE = pygame.USEREVENT
 pygame.time.set_timer(SCREEN_UPDATE, 150) # make event trigger every 150 miliseconds (for moving snake)
 
+main_game = MAIN()
 
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
         if event.type == SCREEN_UPDATE:
-            snake.move_snake()
+            main_game.update()
         if event.type == pygame.KEYDOWN: # check for input on keyboard
             if event.key == pygame.K_UP: # change direction depending on input
-                snake.direction = Vector2(0, -1)
+                main_game.snake.direction = Vector2(0, -1)
             if event.key == pygame.K_DOWN:
-                snake.direction = Vector2(0, 1)
+                main_game.snake.direction = Vector2(0, 1)
             if event.key == pygame.K_LEFT:
-                snake.direction = Vector2(-1, 0)
+                main_game.snake.direction = Vector2(-1, 0)
             if event.key == pygame.K_RIGHT:
-                snake.direction = Vector2(1, 0)
+                main_game.snake.direction = Vector2(1, 0)
 
 
     screen.fill((175, 215, 70)) # green background color
-    fruit.draw_fruit()
-    snake.draw_snake()
-    
-        
+    main_game.draw_elements()
     pygame.display.update()
     clock.tick(60)
 
