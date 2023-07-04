@@ -56,6 +56,16 @@ while running:
             running = False
         if event.type == SCREEN_UPDATE:
             snake.move_snake()
+        if event.type == pygame.KEYDOWN: # check for input on keyboard
+            if event.key == pygame.K_UP: # change direction depending on input
+                snake.direction = Vector2(0, -1)
+            if event.key == pygame.K_DOWN:
+                snake.direction = Vector2(0, 1)
+            if event.key == pygame.K_LEFT:
+                snake.direction = Vector2(-1, 0)
+            if event.key == pygame.K_RIGHT:
+                snake.direction = Vector2(1, 0)
+
 
     screen.fill((175, 215, 70)) # green background color
     fruit.draw_fruit()
