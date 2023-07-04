@@ -19,7 +19,7 @@ class FRUIT:
 
 class SNAKE:
     def __init__(self):
-        self.body = [Vector2(5, 10), Vector2(6, 10), Vector2(7, 10)]
+        self.body = [Vector2(5, 10), Vector2(4, 10), Vector2(3, 10)]
         self.direction = Vector2(1, 0) # temporary direction (moving to right), add player input later
         self.new_block = False
     
@@ -68,6 +68,11 @@ class MAIN:
     def check_fail(self):
         if (not 0 <= self.snake.body[0].x < cell_number) or (not 0 <= self.snake.body[0].y < cell_number): # if the head of the snake is out of the grid
             self.game_over()
+        
+        for block in self.snake.body[1:]:
+            if block == self.snake.body[0]: # if the head of snake collides with any part of its body, lose
+                self.game_over()
+
     
     def game_over(self):
         pygame.quit()
