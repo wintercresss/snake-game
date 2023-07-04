@@ -196,7 +196,7 @@ game_font = pygame.font.Font('Font/PoetsenOne-Regular.ttf', 25)
 
 
 SCREEN_UPDATE = pygame.USEREVENT
-pygame.time.set_timer(SCREEN_UPDATE, 150) # make event trigger every 150 miliseconds (for moving snake)
+pygame.time.set_timer(SCREEN_UPDATE, 100) # make event trigger every 100 miliseconds (for moving snake)
 
 main_game = MAIN()
 
