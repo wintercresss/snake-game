@@ -6,14 +6,10 @@ class FRUIT:
     def __init__(self):  # create x and y position
         self.randomize()
 
-    
     def draw_fruit(self): # create and draw fruit
         fruit_rect = pygame.Rect(int(self.pos.x * cell_size), int(self.pos.y * cell_size), cell_size, cell_size) # x, y, width, height
         screen.blit(apple, fruit_rect)
 
-        #pygame.draw.rect(screen, (126, 166, 114), fruit_rect) #surface, color, rectangle (temp color for now)
-
-    
     def randomize(self):
         self.x = random.randint(0, cell_number - 1)
         self.y = random.randint(0, cell_number - 1)
