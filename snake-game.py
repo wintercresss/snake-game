@@ -40,6 +40,8 @@ class SNAKE:
         self.body_br = pygame.image.load('Graphics/body_br.png').convert_alpha()
         self.body_bl = pygame.image.load('Graphics/body_bl.png').convert_alpha()
 
+        self.crunch_sound = pygame.mixer.Sound('Sound/crunch.wav')
+
     
     def draw_snake(self):
         self.update_head_graphics()
@@ -106,6 +108,8 @@ class SNAKE:
     def add_block(self):
         self.new_block = True
 
+    def play_crunch_sound(self):
+        self.crunch_sound.play()
 
 class MAIN:
     def __init__(self):
@@ -127,6 +131,7 @@ class MAIN:
         if self.fruit.pos == self.snake.body[0]: # if the head of the snake collides with the fruit
             self.fruit.randomize() # make new fruit spawn in new location
             self.snake.add_block()
+            self.snake.play_crunch_sound()
 
     def check_fail(self):
         if (not 0 <= self.snake.body[0].x < cell_number) or (not 0 <= self.snake.body[0].y < cell_number): # if the head of the snake is out of the grid
