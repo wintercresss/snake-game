@@ -162,7 +162,11 @@ class MAIN:
         score_x = int(cell_size * cell_number - 60)
         score_y = int(cell_size * cell_number - 40)
         score_rect = score_surface.get_rect(center = (score_x, score_y))
+        apple_rect = apple.get_rect(midright = (score_rect.left, score_rect.centery))
+
+
         screen.blit(score_surface, score_rect)
+        screen.blit(apple, apple_rect)
 
 
 pygame.init()
