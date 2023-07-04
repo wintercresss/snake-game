@@ -43,6 +43,7 @@ class SNAKE:
     
     def draw_snake(self):
         self.update_head_graphics()
+        self.update_tail_graphics()
 
 
         for index, block in enumerate(self.body): 
@@ -53,9 +54,10 @@ class SNAKE:
 
 
 
-            # 2. what direction is the face heading?
             if index == 0: # head of snake
                 screen.blit(self.head, block_rect)
+            elif index == len(self.body)-1: # tail of snake (last item)
+                screen.blit(self.tail, block_rect)
             else:
                 pygame.draw.rect(screen, (150, 100, 100), block_rect)
 
@@ -69,7 +71,13 @@ class SNAKE:
         elif head_relation == Vector2(0, 1): self.head = self.head_up
         elif head_relation == Vector2(0, -1): self.head = self.head_down
 
+    def update_tail_graphics(self):
+        tail_relation = self.body[-1] - self.body[-2] # find direction that the tail is going
 
+        if tail_relation == Vector2(1, 0): self.tail = self.tail_right
+        elif tail_relation == Vector2(-1, 0): self.tail = self.tail_left
+        elif tail_relation == Vector2(0, 1): self.tail = self.tail_down
+        elif tail_relation == Vector2(0, -1): self.tail = self.tail_right
 
 
 
