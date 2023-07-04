@@ -121,6 +121,7 @@ class MAIN:
         self.draw_grass()
         self.fruit.draw_fruit()
         self.snake.draw_snake()
+        self.draw_score()
     
     def check_collision(self):
         if self.fruit.pos == self.snake.body[0]: # if the head of the snake collides with the fruit
@@ -154,7 +155,14 @@ class MAIN:
                     if col % 2 != 0:
                         grass_rect = pygame.Rect(col * cell_size, row * cell_size, cell_size, cell_size) # x, y, width, height
                         pygame.draw.rect(screen,grass_color, grass_rect)
-
+    
+    def draw_score(self):
+        score_text = str(len(self.snake.body) - 3) # reduce by 3 to start by 0
+        score_surface = game_font.render(score_text, True, (56, 74, 12))     # text, anti-alias, color
+        score_x = int(cell_size * cell_number - 60)
+        score_y = int(cell_size * cell_number - 40)
+        score_rect = score_surface.get_rect(center = (score_x, score_y))
+        screen.blit(score_surface, score_rect)
 
 
 pygame.init()
@@ -164,6 +172,7 @@ screen = pygame.display.set_mode((cell_number * cell_size , cell_number * cell_s
 pygame.display.set_caption("Snake Game!")
 clock = pygame.time.Clock()
 apple = pygame.image.load('Graphics/apple.png').convert_alpha()
+game_font = pygame.font.Font('Font/PoetsenOne-Regular.ttf', 25)
 
 
 
