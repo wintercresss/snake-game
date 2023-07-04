@@ -47,11 +47,9 @@ class SNAKE:
 
 
         for index, block in enumerate(self.body): 
-            # 1. need rect for positioning
             x_pos = int(block.x * cell_size)
             y_pos = int(block.y * cell_size)
             block_rect = pygame.Rect(x_pos, y_pos, cell_size, cell_size)
-
 
 
             if index == 0: # head of snake
@@ -77,10 +75,6 @@ class SNAKE:
                         screen.blit(self.body_br, block_rect)
 
 
-                #pygame.draw.rect(screen, (150, 100, 100), block_rect)
-
-
-
     def update_head_graphics(self):
         head_relation = self.body[1] - self.body[0] # find the direction that the snake is going
 
@@ -96,12 +90,6 @@ class SNAKE:
         elif tail_relation == Vector2(-1, 0): self.tail = self.tail_left
         elif tail_relation == Vector2(0, 1): self.tail = self.tail_down
         elif tail_relation == Vector2(0, -1): self.tail = self.tail_up
-
-
-
-
-
-
     
     def move_snake(self):
         if self.new_block:
@@ -130,6 +118,7 @@ class MAIN:
         self.check_fail()
 
     def draw_elements(self):
+        self.draw_grass()
         self.fruit.draw_fruit()
         self.snake.draw_snake()
     
@@ -150,6 +139,22 @@ class MAIN:
     def game_over(self):
         pygame.quit()
         sys.exit()
+    
+    def draw_grass(self): # create checkerboard pattern to the background
+        grass_color = (167, 209, 61) # dark green color
+
+        for row in range(cell_number):
+            if row % 2 == 0:
+                for col in range(cell_number):
+                    if col % 2 == 0:
+                        grass_rect = pygame.Rect(col * cell_size, row * cell_size, cell_size, cell_size) # x, y, width, height
+                        pygame.draw.rect(screen,grass_color, grass_rect)
+            else:
+                for col in range(cell_number):
+                    if col % 2 != 0:
+                        grass_rect = pygame.Rect(col * cell_size, row * cell_size, cell_size, cell_size) # x, y, width, height
+                        pygame.draw.rect(screen,grass_color, grass_rect)
+
 
 
 pygame.init()
