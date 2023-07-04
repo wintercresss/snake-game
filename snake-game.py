@@ -9,7 +9,10 @@ class FRUIT:
     
     def draw_fruit(self): # create and draw fruit
         fruit_rect = pygame.Rect(int(self.pos.x * cell_size), int(self.pos.y * cell_size), cell_size, cell_size) # x, y, width, height
-        pygame.draw.rect(screen, (126, 166, 114), fruit_rect) #surface, color, rectangle (temp color for now)
+        screen.blit(apple, fruit_rect)
+
+        #pygame.draw.rect(screen, (126, 166, 114), fruit_rect) #surface, color, rectangle (temp color for now)
+
     
     def randomize(self):
         self.x = random.randint(0, cell_number - 1)
@@ -80,12 +83,13 @@ class MAIN:
 
 
 pygame.init()
-
 cell_size = 40 # using cells to mimic a grid
 cell_number = 20
 screen = pygame.display.set_mode((cell_number * cell_size , cell_number * cell_size)) # width, height
 pygame.display.set_caption("Snake Game!")
 clock = pygame.time.Clock()
+apple = pygame.image.load('Graphics/apple.png').convert_alpha()
+
 
 
 SCREEN_UPDATE = pygame.USEREVENT
