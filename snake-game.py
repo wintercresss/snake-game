@@ -66,7 +66,15 @@ class SNAKE:
                     screen.blit(self.body_vertical, block_rect)
                 elif prev_block.y == next_block.y: # x didn't move, snake has gone purely horizontally (no turn)
                     screen.blit(self.body_horizontal, block_rect)
-
+                else: # there is a turn (corner)
+                    if (prev_block.x == -1 and next_block.y == -1) or (prev_block.y == -1 and next_block.x == -1): # have to account for both possible turns
+                        screen.blit(self.body_tl, block_rect)
+                    elif (prev_block.x == -1 and next_block.y == 1) or (prev_block.y == 1 and next_block.x == -1):
+                        screen.blit(self.body_bl, block_rect)
+                    elif (prev_block.x == 1 and next_block.y == -1) or (prev_block.y == -1 and next_block.x == 1):
+                        screen.blit(self.body_tr, block_rect)
+                    elif (prev_block.x == 1 and next_block.y == 1) or (prev_block.y == 1 and next_block.x == 1):
+                        screen.blit(self.body_br, block_rect)
 
 
                 #pygame.draw.rect(screen, (150, 100, 100), block_rect)
@@ -87,7 +95,7 @@ class SNAKE:
         if tail_relation == Vector2(1, 0): self.tail = self.tail_right
         elif tail_relation == Vector2(-1, 0): self.tail = self.tail_left
         elif tail_relation == Vector2(0, 1): self.tail = self.tail_down
-        elif tail_relation == Vector2(0, -1): self.tail = self.tail_right
+        elif tail_relation == Vector2(0, -1): self.tail = self.tail_up
 
 
 
