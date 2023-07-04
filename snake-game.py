@@ -59,7 +59,17 @@ class SNAKE:
             elif index == len(self.body)-1: # tail of snake (last item)
                 screen.blit(self.tail, block_rect)
             else:
-                pygame.draw.rect(screen, (150, 100, 100), block_rect)
+                prev_block = self.body[index + 1] - block
+                next_block = self.body[index - 1] - block
+
+                if prev_block.x == next_block.x: # x didn't move, snake has gone purely vertically (no turn)
+                    screen.blit(self.body_vertical, block_rect)
+                elif prev_block.y == next_block.y: # x didn't move, snake has gone purely horizontally (no turn)
+                    screen.blit(self.body_horizontal, block_rect)
+
+
+
+                #pygame.draw.rect(screen, (150, 100, 100), block_rect)
 
 
 
