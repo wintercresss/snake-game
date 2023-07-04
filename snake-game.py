@@ -42,11 +42,40 @@ class SNAKE:
 
     
     def draw_snake(self):
-        for block in self.body: # create rectangle from position and draw
+        self.update_head_graphics()
+
+
+        for index, block in enumerate(self.body): 
+            # 1. need rect for positioning
             x_pos = int(block.x * cell_size)
             y_pos = int(block.y * cell_size)
-            snake_rect = pygame.Rect(x_pos, y_pos, cell_size, cell_size)
-            pygame.draw.rect(screen, (183, 111, 122), snake_rect)
+            block_rect = pygame.Rect(x_pos, y_pos, cell_size, cell_size)
+
+
+
+            # 2. what direction is the face heading?
+            if index == 0: # head of snake
+                screen.blit(self.head, block_rect)
+            else:
+                pygame.draw.rect(screen, (150, 100, 100), block_rect)
+
+
+
+    def update_head_graphics(self):
+        head_relation = self.body[1] - self.body[0] # find the direction that the snake is going
+
+        if head_relation == Vector2(1, 0): self.head = self.head_left
+        elif head_relation == Vector2(-1, 0): self.head = self.head_right
+        elif head_relation == Vector2(0, 1): self.head = self.head_up
+        elif head_relation == Vector2(0, -1): self.head = self.head_down
+
+
+
+
+
+
+
+
     
     def move_snake(self):
         if self.new_block:
