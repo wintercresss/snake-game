@@ -46,11 +46,17 @@ running = True
 fruit = FRUIT()
 snake = SNAKE()
 
+SCREEN_UPDATE = pygame.USEREVENT
+pygame.time.set_timer(SCREEN_UPDATE, 150) # make event trigger every 150 miliseconds (for moving snake)
+
 
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        if event.type == SCREEN_UPDATE:
+            snake.move_snake()
+
     screen.fill((175, 215, 70)) # green background color
     fruit.draw_fruit()
     snake.draw_snake()
